@@ -1,0 +1,83 @@
+---
+layout: default
+overview: true
+---
+<div >
+    <div>
+    <label>Хэш блока</label><br/>
+    <textarea id="hash1" cols="100" rows="5"></textarea>
+    </div>
+    <div>
+    <label>Хэш последнего блока</label><br/>
+    <textarea id="hash2" cols="100" rows="5"></textarea>
+	</div>
+    
+    <div>
+    <label>Колличество участников</label><br/>
+    <input type="text" id="participants" size="10" min="2"/>
+	</div>
+
+    <div>
+        <br/><input type="button" onclick="calculate()" id="calculate" value="Вычислить счастливое число" /><br/><br/>
+    </div>
+    
+    <div>
+    <label>Суммарный хэш</label><br>
+    <input type="text" id="hash" size="100" /><br>
+    <label>Счастливое число</label><br>
+    <input type="text" id="luckyNumber" size="10" />
+
+	</div>
+    
+
+<script  type="text/javascript" >
+
+    function calculate() {
+        var hash1 = document.getElementById("hash1").value,
+        hash2 = document.getElementById("hash2").value,
+        participants = parseInt(document.getElementById("participants").value);    
+    
+        if(!participants || participants < 2) {
+            alert("Требуется колличество участников, от 2 и более");
+        } 
+        if(sig1) sig1 = sig1.trim();
+        if(sig2) sig2 = sig2.trim();
+        
+	// собственно вычисления    
+	let h = (hash1+hash2).toString();
+        //alert(bigInt(h, 16).mod(participants));
+        let d = bigInt(h, 16).mod(participants);
+        console.log(d);
+
+	document.getElementById("hash").value = h;
+        document.getElementById("luckyNumber").value = (d.value;
+        
+    }
+    
+    function updateValues()
+    {
+	//console.log("updateValues = " + JSON.stringify(site));     
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for(var i = 0; i < hashes.length; i++)
+        {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        
+        if(vars["hash1"]) {
+            document.getElementById("hash1").value = vars["hash1"];
+        }
+        if(vars["hash2"]) {
+            document.getElementById("hash2").value = vars["hash2"];
+        }
+        if(vars["p"]) {
+            document.getElementById("participants").value = vars["p"];
+        }
+    }    
+
+</script>
+<script src="BigInteger.min.js" onLoad="updateValues()"></script>
+
+</div>
